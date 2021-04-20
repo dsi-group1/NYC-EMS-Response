@@ -36,11 +36,53 @@ __Traffic data: [source needed]__
 
 This data contains traffic incidents in New York from 2010 to 2016. We removed all incidents outside of the five boroughs (Manhattan, Queens, Brooklyn, Bronx, and Staten Island) since we’re focusing on NYC only. Similar to weather, we created YEAR, MONTH, and DAY columns, however we also created an HOUR  column to look at traffic incidents by hour.  We then used groupby to create a new dataframe with the number of traffic incidents by year, month, day, and hour to join with the hourly call + weather data. 
 
-#### Data Dictionary:
+#### Data Dictionary for merged dataset:
+
+| Column                    | Non-Null Count  | Datatype  | Notes                                         |
+| ---                       | ---             | ---       | ---                                           |
+| year                      | 25465 non-null  | int64     | year (2010-2019)                              |
+| month                     | 25465 non-null  | int64     | month of the year (1-12)                      |
+| day                       | 25465 non-null  | int64     | day of the month (1-31)                       |
+| hour                      | 25465 non-null  | int64     | hour of the day (0-23)                        |
+| num_calls                 | 25465 non-null  | int64     | number of total NYC EMS calls within the hour |
+| BRONX                     | 25465 non-null  | int64     | number of Bronx EMS calls                     |
+| BROOKLYN                  | 25241 non-null  | int64     | number of Brooklyn EMS calls                  | 
+| MANHATTAN                 | 25241 non-null  | int64     | number of Manhattan EMS calls                 |
+| QUEENS                    | 25241 non-null  | int64     | number of Queens EMS calls                    |
+| RICHMOND / STATEN ISLAND  | 25241 non-null  | int64     | number of Richmond/Staten Island EMS calls    |
+| UNKNOWN                   | 25241 non-null  | int64     | number of EMS calls from unknown borough      |
+| STATION                   | 25241 non-null  | object    | weather station ID                            |
+| NAME                      | 25241 non-null  | object    | weather station name                          |
+| DATE                      | 25241 non-null  | object    | date                                          |
+| PRCP                      | 25241 non-null  | float64   | precipitation in inches (?)                   |
+| SNOW                      | 25241 non-null  | float64   | snow (falling) in inches (?)                  |
+| SNWD                      | 25241 non-null  | float64   | snow depth on ground in inches                |
+| TMAX                      | 25241 non-null  | float64   | max temperature in degrees Fahrenheit         |
+| TMIN                      | 25241 non-null  | float64   | min temperature in degrees Fahrenheit         |
+| TAVG_CALC                 | 25241 non-null  | float64   | (max temp + min temp)/2                       |
+| Incidences                | 25241 non-null  | int64     | number of traffic incidents within the hour   |
 
 
-A problem statement.
-A succinct formulation of the question your analysis seeks to answer.
-A table of contents, which should indicate which notebook or scripts a stakeholder should start with, and a link to an executive summary.
-A paragraph description of the data you used, plus your data acquisition, ingestion, and cleaning steps.
-A short description of software requirements (e.g., Pandas, Scikit-learn) required by your analysis.
+#### Software requirements:
+
+| Purpose                | Libraries  | Import Statements                                                                 |
+| ---                    | ---        | ---                                                                               | 
+| DataFrame manipulation | pandas     | import pandas as pd                                                               |
+|  and cleaning          | numpy      | import numpy as np                                                                |
+|                        | datetime   | from datetime import timezone                                                     |
+|                        |            | import datetime                                                                   |
+|                        | time       | import time                                                                       |
+|                        | os         | import os                                                                         |
+| Plotting and EDA       | matplotlib | import matplotlib.pyplot as plt                                                   |
+|                        | seaborn    | import seaborn as sns                                                             |
+| Modeling               | sklearn    | from sklearn.model_selection import train_test_split, GridSearchCV                |
+|                        |            | from sklearn.linear_model import LinearRegression, Lasso, Ridge, LassoCV, RidgeCV |
+|                        |            | from sklearn.svm import LinearSVR                                                 |
+|                        |            | from sklearn.ensemble import AdaBoostRegressor, RandomForestRegressor             |
+|                        |            | from sklearn.preprocessing import StandardScaler, PolynomialFeatures              |
+|                        |            | from sklearn.metrics import r2_score, mean_squared_error                          |
+|                        |            | from sklearn.pipeline import Pipeline                                             |
+|                        | tensorflow | from tensorflow.keras.models import Sequential                                    |
+|                        |            | from tensorflow.keras.layers import Dense, Input                                  |
+
+
