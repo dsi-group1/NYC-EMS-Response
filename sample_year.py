@@ -1,5 +1,11 @@
 # https://stackoverflow.com/questions/35295981/how-to-select-every-5th-row-in-a-csv-file-using-python
 
+# This script runs through the (VERY LARGE) EMS dataset, and splits it into separate files for each year.
+
+# We are selecting 2010-2019 to match with weather and traffic data.
+
+# These files will later be used to compute hourly counts of EMS calls.
+
 import csv
 
 count = 0
