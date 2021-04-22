@@ -31,7 +31,7 @@ We set X to all the remaining features and y to num_calls, train/test split the 
 
 #### Baseline:
 
-The baseline model is that the call volume is always equal to the mean call volume of the train set. The R2 of the baseline is 0 for train, -3.8x10-6 for test (so the baseline accounts for 0% of the variance). The RMS of the baseline is 52.1 calls/hour for the train, and 52.0 calls/hour for the test.
+The baseline model is that the call volume is always equal to the mean call volume of the train set. The R2 of the baseline is 0 for train, -1.8x10-5 for test (so the baseline accounts for 0% of the variance). The RMS of the baseline is 54.2 calls/hour for the train, and 54.3 calls/hour for the test.
 
 #### Initial: Linear regression model
 
@@ -67,4 +67,8 @@ Next, we ran a gridsearch with a random forest model and various n_estimators an
 
 #### Neural net & predictive power
 
-* Streamlit app
+needs to be added
+
+### Streamlit app
+
+needs to be added
