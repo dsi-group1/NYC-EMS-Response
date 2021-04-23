@@ -12,9 +12,38 @@
 
 While these features are beyond our control, the goal of this project is to increase preparedness for a surge in emergency services given specific conditions. Using predictive modeling, we hope to be able to provide an indication of when the city should increase staff in emergency call centers or even on response teams.
 
-## Table of Contents - TBD after the repo is reorganized
+## Table of Contents
 
-## [Click Here for the Executive Summary](ExecSummary.md)
+| folder | file | notes |
+|---|---|---|
+| | | |
+| Main Directory | README.md | (current file) |
+|                | [ExecSummary.md](ExecSummary.md) | Process, Summary, and Recommendations 
+| | | |
+| data           | hourlycalls_through2019.csv | call volume |
+|                | cntrlprk_weather.csv | weather | 
+|                | hourlycalls_weather.csv | call volume + weather |
+|                | traffic_subsample.csv | traffic |
+|                | hourlycalls_weather_traffic.csv | call volume + weather + traffic |
+| | | |
+| cleaning_eda   | ems_sample_year.py | sampled the full EMS calls file to make yearly files |
+|                | ems_hourly_calls.py | aggregates total hourly call volume for 2010-2019 |
+|                | merge_hourlycalls_weather.ipynb | merge hourly calls with weather |
+|                | merge_hourlycalls_weather_traffic.ipynb | merge hourly calls + weather with traffic |
+|                | feature_quartile_eda.ipynb | eda of features |
+| | | |
+| modeling       | hourlycalls_weather_initialmodels.ipynb | lin. regression + NN    |
+|                | Rough_Model-Chris.ipynb       | lin. regression + NN              |
+|                | linreg_ensemble_models.ipynb  | lin. regression + RF              |
+|                | recurrent_neuralnetwork.ipynb | Recurrent NN                      |
+|                | app-model.pkl | The model saved for use in the StreamLit app      |
+| | | |
+| app            | NYC-st-app.py | code for StreamLit app                            |
+| | | |
+| archive        | *multiple*    | yielded insight, but not part of the main project |
+
+
+#### [Click Here for the Executive Summary](ExecSummary.md)
 
 ## Data
 
@@ -32,7 +61,7 @@ We requested daily weather data for the New York area from Jan 1, 2005 to Jan 3,
 
 For cleaning, we took the date column (formatted as YYYY-MM-DD) and created new columns for YEAR, MONTH, and DAY which could then be used to join with the hourly call data. We also noticed that the majority of the average temperature (TAVG) column was missing, and created a new column which calculated the average temperature based on max and min temperatures for the day.
 
-__Traffic data: [source needed]__
+__Traffic data:  https://data.ny.gov/Transportation/511-NY-Events-Beginning-2010/ah74-pg4w__ 
 
 This data contains traffic incidents in New York from 2010 to 2016. We removed all incidents outside of the five boroughs (Manhattan, Queens, Brooklyn, Bronx, and Staten Island) since we’re focusing on NYC only. Similar to weather, we created YEAR, MONTH, and DAY columns, however we also created an HOUR  column to look at traffic incidents by hour.  We then used groupby to create a new dataframe with the number of traffic incidents by year, month, day, and hour to join with the hourly call + weather data. 
 
@@ -46,21 +75,22 @@ This data contains traffic incidents in New York from 2010 to 2016. We removed a
 | hour                      | 25465 non-null  | int64     | hour of the day (0-23)                        |
 | num_calls                 | 25465 non-null  | int64     | number of total NYC EMS calls within the hour |
 | BRONX                     | 25465 non-null  | int64     | number of Bronx EMS calls                     |
-| BROOKLYN                  | 25241 non-null  | int64     | number of Brooklyn EMS calls                  | 
-| MANHATTAN                 | 25241 non-null  | int64     | number of Manhattan EMS calls                 |
-| QUEENS                    | 25241 non-null  | int64     | number of Queens EMS calls                    |
-| RICHMOND / STATEN ISLAND  | 25241 non-null  | int64     | number of Richmond/Staten Island EMS calls    |
-| UNKNOWN                   | 25241 non-null  | int64     | number of EMS calls from unknown borough      |
-| STATION                   | 25241 non-null  | object    | weather station ID                            |
-| NAME                      | 25241 non-null  | object    | weather station name                          |
-| DATE                      | 25241 non-null  | object    | date                                          |
-| PRCP                      | 25241 non-null  | float64   | precipitation in inches (?)                   |
-| SNOW                      | 25241 non-null  | float64   | snow (falling) in inches (?)                  |
-| SNWD                      | 25241 non-null  | float64   | snow depth on ground in inches                |
-| TMAX                      | 25241 non-null  | float64   | max temperature in degrees Fahrenheit         |
-| TMIN                      | 25241 non-null  | float64   | min temperature in degrees Fahrenheit         |
-| TAVG_CALC                 | 25241 non-null  | float64   | (max temp + min temp)/2                       |
-| Incidences                | 25241 non-null  | int64     | number of traffic incidents within the hour   |
+| BROOKLYN                  | 25465 non-null  | int64     | number of Brooklyn EMS calls                  | 
+| MANHATTAN                 | 25465 non-null  | int64     | number of Manhattan EMS calls                 |
+| QUEENS                    | 25465 non-null  | int64     | number of Queens EMS calls                    |
+| RICHMOND / STATEN ISLAND  | 25465 non-null  | int64     | number of Richmond/Staten Island EMS calls    |
+| UNKNOWN                   | 25465 non-null  | int64     | number of EMS calls from unknown borough      |
+| STATION                   | 25465 non-null  | object    | weather station ID                            |
+| NAME                      | 25465 non-null  | object    | weather station name                          |
+| DATE                      | 25465 non-null  | object    | date                                          |
+| AWND                      | 25241 non-null  | object    | average wind speed in mph                     |
+| PRCP                      | 25465 non-null  | float64   | precipitation in inches                       |
+| SNOW                      | 25465 non-null  | float64   | snow (falling) in inches                      |
+| SNWD                      | 25465 non-null  | float64   | snow depth on ground in inches                |
+| TMAX                      | 25465 non-null  | float64   | max temperature in degrees Fahrenheit         |
+| TMIN                      | 25465 non-null  | float64   | min temperature in degrees Fahrenheit         |
+| TAVG_CALC                 | 25465 non-null  | float64   | (max temp + min temp)/2                       |
+| Incidences                | 25465 non-null  | int64     | number of traffic incidents within the hour   |
 
 
 #### Software requirements:
