@@ -10,11 +10,11 @@
 
 ### Background
 
-We are interested in helping the NYC Emergency Services respond more successfully to the calls that come in.
+We are interested in helping NYC officials respond more successfully to the emergency calls that come in.
 
 The aspects of the NYC EMS response we were interested in initially were (a) the factors impacting response time after an EMS call, and (b) predicting the volume of calls that come in to the call centers.
 
-We used a variety of models, from linear regression to neural nets, to attempt to predict the response time. We were able to capture 58% of the variance (R2=0.58) on unseen data, with an RMSE of 5.3 minutes. This does beat the NULL model, which captures 0% of the variance and has an RMSE of 8.1 minutes on unseen data. However, with the data currently available, the bias in our models was still too high to be truly useful. We did find that travel time was the majority of the response time in almost every call, but additional data (particularly related to traffic patterns) is needed to fully address this aspect of the prolem.
+We used a variety of models, from linear regression to neural nets, to attempt to predict the response time. We were able to capture 58% of the variance (R2=0.58) on unseen data, with an RMSE of 5.3 minutes. This does beat the NULL model, which captures 0% of the variance and has an RMSE of 8.1 minutes on unseen data. However, with the data currently available, the bias in our models was still too high to be truly useful. We did find that travel time was the majority of the response time in almost every call, but additional data (particularly related to traffic patterns) is needed to fully address this aspect of the problem.
 
 For the current project, then, we will focus on examining and predicting call volume.
 
@@ -24,7 +24,7 @@ Can we predict emergency call volume in NYC using time, weather, and traffic dat
 
 ### Cleaning & Pre-processing
 
-The EMS call data was aggregated into call volume per hour for every hour between Jan 1, 2010 and December 31, 2019, and merged with daily temperature and precipitation data from a Central Park weather station and hourly traffic incidents for New York city.
+The EMS call data was aggregated into call volume per hour for every hour between Jan 1, 2010 and December 31, 2019, and merged with daily temperature and precipitation data from a Central Park weather station and hourly traffic incidents for New York City.
 
 We removed any unnecessary columns including Unnamed: 0, STATION, NAME, and DATE, as well as AWND which has null values. We also removed any correlated columns including all the boroughs which add up to num_calls and TMAX / TMIN which was used to calculate TAVG.
 
@@ -85,13 +85,13 @@ In addition the minimum, quartile 1, median, and quartile 3 are close between th
 
 With this neural net model, we can account for about 84% of variance. This is encouraging when it comes to forecasting call volumes. While we would like to reach or surpass 85% of the variance, we appear to be hitting about the limit of our available data (based on multiple types of models).
 
-### Streamlit app
+### Streamlit App
 
-It is also useful to be able to predict call volume based on specific values of the relevant features. For that purpose, we have created a Streamlit app to allow any user to input hour, day, month, traffic incidents, average temperature, and precipitation and optain a prediction of the expected NYC EMS hourly call volume. For this app, we used the neural net model, since it has the greatest predictive power.
+It is also useful to be able to predict call volume based on specific values of the relevant features. For that purpose, we have created a Streamlit app to allow any user to input hour, day, month, traffic incidents, average temperature, and precipitation and obtain a prediction of the expected NYC EMS hourly call volume. For this app, we used the neural net model, since it has the greatest predictive power.
 
 ### Summary
 
-Our neural net model is well aligned with the expected outcome, except at the extreme of call volume seen in the data set.  There will always be emergency situations (natural weather events, national emergency situations, etc) that cannot be properly accounted for, but that is beyond the scope of the current project. Our goal is to help NYC Emergency Management predict normal variability in EMS call volume, and make sure that staff is allocated effectively.  This model is not designed for interpretability because there is no control that can really be had over the inputs.  Weather cannot be controlled, traffic is very difficult to control, and until further breakthroughs occur in science, we cannot control time either. 
+Our neural net model is well aligned with the expected outcome, except at the extreme of call volume seen in the data set.  There will always be emergency situations (natural weather events, national emergency situations, etc.) that cannot be properly accounted for, but that is beyond the scope of the current project. Our goal is to help NYC Emergency Management predict normal variability in EMS call volume, and make sure that staff is allocated effectively.  This model is not designed for interpretability because there is no control that can really be had over the inputs.  Weather cannot be controlled, traffic is very difficult to control, and until further breakthroughs occur in science, we cannot control time either. 
 
 For NYC Emergency Management, we do not need interpretability. The predictive power of the neural net model has been input into the StreamLit app, ready for immediate use.
 
@@ -99,7 +99,7 @@ The Random Forest model R2 and RMSE scores were not quite as good as the neural 
 
 ### Recommendations
 
-* __Immediate Use:__  Using weather forecasts and our model, create a ‘heat map’ of staff needed and schedule people accordingly.  If number of calls are known then it is a quick jump to use that for staffing projections.  This will help to prevent having people on duty when they are not needed and avoid the reverse situation.  If implemented well this should help to avoid preventable deaths.
+* __Immediate Use:__  Using weather forecasts and our model, create a 'heat map' of staff needed and schedule people accordingly.  If number of calls are known then it is a quick jump to use that for staffing projections.  This will help to prevent having people on duty when they are not needed and avoid the reverse situation.  If implemented well this should help to avoid preventable deaths.
 
 * __Further research:__  We do have a few areas we would like to look into in the future:
     1. __Historical traffic density and traffic incident type:__  As it is right now, we know how many incidents happen but not the severity or the overall effect these have on traffic.  Using traffic density and type we believe we can improve on our models predictability and cut down on the RMSE. It might also help us approach the 'response time' prediction aspect of improving NYC EMS response.
