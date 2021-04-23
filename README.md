@@ -8,7 +8,7 @@
 
 ## Problem Statement  
 
-#### Can we predict emergency (EMS) call volume in NYC using time, weather, and traffic data? 
+#### Can we predict emergency call volume in NYC using time, weather, and traffic data? 
 
 While these features are beyond our control, the goal of this project is to increase preparedness for a surge in emergency services given specific conditions. Using predictive modeling, we hope to be able to provide an indication of when the city should increase staff in emergency call centers or even on response teams.
 
