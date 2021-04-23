@@ -15,6 +15,10 @@ years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 for yr_wanted in years:
     
 # open files and handle headers
+
+# Note that './data/EMS_Incident_Dispatch_Data.csv' is a very large file so 
+# it has not been uploaded to the git repo.
+
     with open('./data/EMS_Incident_Dispatch_Data.csv') as infile:
         file_out = f'./data/ems{yr_wanted}.csv'
         with open(file_out, 'w') as outfile:

@@ -20,6 +20,11 @@ for year0 in years:
     df = pd.read_csv(file_in)
     df = df[['INCIDENT_DATETIME', 'BOROUGH']]
     
+    # Note that even though the yearly files were smaller than the original 
+    # './data/EMS_Incident_Dispatch_Data.csv' they are still quite large so 
+    # they have not been uploaded to the git repo.
+    # 
+
     # output for my sanity:
     print(f'loaded in data for {year0}.')
     
