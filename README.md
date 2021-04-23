@@ -33,9 +33,8 @@ While these features are beyond our control, the goal of this project is to incr
 |                | feature_quartile_eda.ipynb | eda of features |
 | | | |
 | modeling       | hourlycalls_weather_initialmodels.ipynb | lin. regression + NN    |
-|                | Rough_Model-Chris.ipynb       | lin. regression + NN              |
 |                | linreg_ensemble_models.ipynb  | lin. regression + RF              |
-|                | recurrent_neuralnetwork.ipynb | Recurrent NN                      |
+|                | neural_net_final.ipynb | neural net models                        |
 |                | app-model.pkl | The model saved for use in the StreamLit app      |
 | | | |
 | app            | NYC-st-app.py | code for StreamLit app                            |
