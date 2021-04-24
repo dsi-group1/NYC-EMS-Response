@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 import tensorflow as tf
 from math import sqrt
 
@@ -48,6 +49,14 @@ month = st.sidebar.slider('Month',1,12)
 
 PRCP = st.sidebar.slider('Precipitation',0,2)
 
+if PRCP == 0:
+    PRCP = 0
+    
+elif PRCP == 1:
+    PRCP = 0.134018
+else:
+    PRCP = 5.810000
+
 year = 2016 
 
 SNWD = st.sidebar.slider('Snow Depth (inches)',0,24)
@@ -64,17 +73,14 @@ params = [[hour, TAVG_CALC, Traffic_Incidents, day, month, PRCP, year, SNWD, AWN
            SNOW, TMAX, TMIN ]] # hard-coded params
 
 # import  model
-loaded_model_h5 = tf.keras.models.load_model('./resources/NYC-st-app-model_h5')
+model = tf.keras.models.load_model('./resources/app-nn/')
 
-# scale params
-ss = StandardScaler()
-stand_scalar =  ss.fit(params)     
-results = stand_scalar.transform(params)
+# sc = StandardScaler()
 
-# # params = ss.fit(params)
-# params = ss.fit_transform(params)
+# params = sc.fit_transform(params)
 
 # make prediction
-prediction = loaded_model_h5.predict(params)
+prediction = model.predict(params)
     
-st.sidebar.write(f'Call volume is predicted to be **{int(sqrt(prediction))}** calls for specified hour.')
+st.sidebar.write(f'Call volume is predicted to be **{int(prediction/60)}** calls for specified hour.')
+
