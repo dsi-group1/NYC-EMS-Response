@@ -1,5 +1,9 @@
 import streamlit as st
 import pickle
+from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
+from math import sqrt
+
 
 # app title
 st.title('NYC Emergency Call Volume Estimator')
@@ -13,7 +17,7 @@ ___
 | ---                       | ---                                           |
 | Hour                      | Hour of the day (0-23)                        |
 | Temp (F)                  | Temperature in Fahrenheit                     |
-| Incidences                | Number of traffic incidents within the hour   |
+| Incidences                | Number of traffic incidents within the hour   | 
 | Day                       | Day of the month (1-31)                       |
 | Month                     | Month of the year (1-12)                      |
 | Precipitation             | Precipitation by intensity (1-3 : L,M,H)      |
@@ -31,40 +35,46 @@ ___
 
 # sliders for each model param:
 st.sidebar.write('## Use the sliders to predict the EMS Call Volume in NYC.')
+
 hour = st.sidebar.slider('Hour',0,23)
 
-temp = st.sidebar.slider('Temp (F)',0,105)
+TAVG_CALC = st.sidebar.slider('Temp (F)',0,105)
 
-incidents = st.sidebar.slider('Traffic Incidents',0,53) #get actual range for this
+Traffic_Incidents = st.sidebar.slider('Traffic Incidents',0,53) #get actual range for this
 
 day = st.sidebar.slider('Day',1,31)
 
 month = st.sidebar.slider('Month',1,12)
 
-year = 2016
+PRCP = st.sidebar.slider('Precipitation',0,2)
 
-prcp = st.sidebar.slider('Precipitation',0,2)
+year = 2016 
 
-snow = 16
+SNWD = st.sidebar.slider('Snow Depth (inches)',0,24)
 
-snwd = st.sidebar.slider('Snow Depth (inches)',0,24)
+AWND = 5.349867675607344
 
-params = [[hour, temp, incidents, day, month, year, prcp, snwd, snow]]
+SNOW = 0.08702925584135096
 
-# import pickled model
-model = pickle.load(open('../modeling/app-model.pkl', 'rb'))
+TMAX = 65.41562929511093
+
+TMIN = 50.76893775770666
+
+params = [[hour, TAVG_CALC, Traffic_Incidents, day, month, PRCP, year, SNWD, AWND, # slider params
+           SNOW, TMAX, TMIN ]] # hard-coded params
+
+# import  model
+loaded_model_h5 = tf.keras.models.load_model('./resources/NYC-st-app-model_h5')
+
+# scale params
+ss = StandardScaler()
+stand_scalar =  ss.fit(params)     
+results = stand_scalar.transform(params)
+
+# # params = ss.fit(params)
+# params = ss.fit_transform(params)
 
 # make prediction
-prediction = model.predict(params)
-
-if prediction > 0 and prediction < 105:
-    level = '''**LOW**'''
-
-if prediction > 106 and prediction < 326:
-    level = '''**AVERAGE**'''
+prediction = loaded_model_h5.predict(params)
     
-if prediction > 326:
-    level = '''**HIGH**'''
-    
-st.sidebar.write(f'Call volume is predicted to be: **{int(prediction)}**')
-st.sidebar.write(f'This is {level} for NYC.')
+st.sidebar.write(f'Call volume is predicted to be **{int(sqrt(prediction))}** calls for specified hour.')
