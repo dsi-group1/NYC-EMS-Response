@@ -81,5 +81,5 @@ model = tf.keras.models.load_model('./resources/app-nn/')
 # make prediction
 prediction = model.predict(params)
     
-st.sidebar.write(f'Call volume is predicted to be **{int(prediction/60)}** calls for specified hour.')
+st.sidebar.write(f'Call volume is predicted to be **{int(prediction/60)}** calls durring the specified hour.')
 
