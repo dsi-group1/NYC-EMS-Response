@@ -72,7 +72,7 @@ params = [[hour, TAVG_CALC, Traffic_Incidents, day, month, PRCP, year, SNWD, AWN
            SNOW, TMAX, TMIN ]] # hard-coded params
 
 # import  model
-model = tf.keras.models.load_model('./resources/app-nn/saved_model.pb')
+model = tf.keras.models.load_model('./resources/app-nn/')
 
 # sc = StandardScaler()
 
