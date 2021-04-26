@@ -1,5 +1,4 @@
 import streamlit as st
-import pickle
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 import tensorflow as tf
