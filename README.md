@@ -1,6 +1,6 @@
 # Predicting Emergency Medical Services Call Volume in New York City
 
-### DSI 2-22-E Project 5, Group 1
+### Collaborators
 * Chris Caress
 * Christina Holland
 * Ashley Poon
@@ -64,7 +64,7 @@ __Traffic data:  https://data.ny.gov/Transportation/511-NY-Events-Beginning-2010
 
 This data contains traffic incidents in New York from 2010 to 2016. We removed all incidents outside of the five boroughs (Manhattan, Queens, Brooklyn, Bronx, and Staten Island) since we’re focusing on NYC only. Similar to weather, we created YEAR, MONTH, and DAY columns, however we also created an HOUR  column to look at traffic incidents by hour.  We then used groupby to create a new dataframe with the number of traffic incidents by year, month, day, and hour to join with the hourly call + weather data. 
 
-#### Data Dictionary for merged dataset:
+#### Data Dictionary for Merged Dataset:
 
 | Column                    | Non-Null Count  | Datatype  | Notes                                         |
 | ---                       | ---             | ---       | ---                                           |
@@ -92,12 +92,12 @@ This data contains traffic incidents in New York from 2010 to 2016. We removed a
 | Incidences                | 25465 non-null  | int64     | number of traffic incidents within the hour   |
 
 
-#### Software requirements:
+#### Software Requirements:
 
 | Purpose                | Libraries  | Import Statements                                                                 |
 | ---                    | ---        | ---                                                                               | 
-| DataFrame manipulation | pandas     | import pandas as pd                                                               |
-|  and cleaning          | numpy      | import numpy as np                                                                |
+| ETL                    | pandas     | import pandas as pd                                                               |
+|                        | numpy      | import numpy as np                                                                |
 |                        | datetime   | from datetime import timezone                                                     |
 |                        |            | import datetime                                                                   |
 |                        | time       | import time                                                                       |
